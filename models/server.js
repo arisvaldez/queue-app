@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 
-const { socketController } = require('../controller/socket.controller');
+const { socketController } = require('../controllers/socket.controller');
 
 class Server {
   constructor() {
