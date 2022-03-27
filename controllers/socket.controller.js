@@ -1,18 +1,13 @@
 const TicketController = require('./ticket.controller');
 
-const ticket = new TicketController();
+const ticketController = new TicketController();
 
 const socketController = (client) => {
-  console.log('client connected', client.id);
+  client.emit('last-ticket', ticketController.last);
 
-  client.on('disconnect', () => {
-    console.log('client disconnected', client.id);
-  });
-
-  client.on('send-message', (message, callback) => {
-    console.log(message);
-    callback(message);
-    client.broadcast.emit('response', 'Response from server');
+  client.on('next-ticket', (message, callback) => {
+    const next = ticketController.callNext();
+    callback(next);
   });
 };
 
